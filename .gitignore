@@ -20,3 +20,6 @@ media/
 .DS_Store
 .vscode/
 .idea/
+
+# Django collected static files
+backend/staticfiles/
