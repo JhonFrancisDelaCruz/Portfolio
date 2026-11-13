@@ -1,0 +1,42 @@
+/* Original Stack page layout and motion, adapted only to grayscale surfaces. */
+.stackPage { min-height: 100svh; padding: calc(var(--nav-h) + 4rem) var(--gutter) 5rem; }
+.stackPage__header { max-width: 44rem; margin-bottom: 3rem; }
+.stackPage__eyebrow { margin: 0 0 0.75rem; color: var(--text-soft); font-family: ui-monospace, 'SFMono-Regular', Menlo, Consolas, monospace; font-size: 0.85rem; letter-spacing: 0.12em; text-transform: uppercase; }
+.stackPage__title { margin: 0 0 1rem; color: var(--text); font-family: var(--font-name); font-size: clamp(2rem, 5vw, 3.25rem); font-weight: 400; line-height: 1.15; }
+.stackPage__intro { max-width: 38rem; margin: 0; color: var(--text-soft); font-size: 1.05rem; }
+.stackGrid { display: flex; flex-direction: column; counter-reset: group; border-bottom: 1px solid rgba(128, 128, 128, 0.24); }
+.stackGroup { display: flex; flex-direction: column; gap: 1.1rem; padding: 2rem 0; border-top: 1px solid rgba(128, 128, 128, 0.24); }
+.stackGroup__head { display: flex; align-items: baseline; gap: 1rem; }
+.stackGroup__title { margin: 0; color: var(--text-soft); font-family: ui-monospace, 'SFMono-Regular', Menlo, Consolas, monospace; font-size: 0.95rem; font-weight: 400; letter-spacing: 0.04em; text-transform: uppercase; }
+.stackGroup__title::before { counter-increment: group; content: counter(group, decimal-leading-zero) ' — '; }
+.stackGroup .stackList { display: flex; flex-wrap: wrap; justify-content: flex-start; gap: 0.8rem; margin: 0; padding: 0; list-style: none; }
+.stackGroup .stackPill { display: inline-flex; height: 38px; align-items: center; gap: 0.75rem; padding: 0 1.3rem 0 0.9rem; border: 1px solid rgba(128, 128, 128, 0.3); border-radius: 999px; color: #fff; background: rgba(128, 128, 128, 0.04); font-size: 0.9rem; font-weight: 500; white-space: nowrap; transition: border-color 0.2s ease, background-color 0.2s ease, transform 0.25s ease, box-shadow 0.25s ease; }
+.stackGroup .stackPill:hover { border-color: #808080; background: rgba(204, 204, 204, 0.08); box-shadow: 0 8px 22px -8px rgba(204, 204, 204, 0.24); transform: translateY(-2px); }
+.stackPill__icon { width: 22px; height: 22px; flex: 0 0 22px; background-color: currentColor; -webkit-mask: var(--i) center / contain no-repeat; mask: var(--i) center / contain no-repeat; transition: background-color 0.2s ease; }
+.stackPill__logo { display: block; width: 22px; height: 22px; flex: 0 0 22px; object-fit: contain; filter: grayscale(1) brightness(0) invert(1); transition: filter 0.35s ease, transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1); }
+.stackPill[data-logo="js"] .stackPill__logo { border-radius: 3px; }
+.stackPill:hover .stackPill__logo, .stackPill__logo:hover { filter: grayscale(1) brightness(0) invert(1); transform: scale(1.25) rotate(-8deg); }
+.stackBack { color: var(--text-soft); font-family: ui-monospace, 'SFMono-Regular', Menlo, Consolas, monospace; font-size: 0.85rem; letter-spacing: 0.12em; text-transform: uppercase; text-decoration: none; transition: color 0.2s ease; }
+.stackBack:hover { color: #fff; }
+.stackBack:focus-visible { outline: 2px solid #ccc; outline-offset: 4px; }
+
+/* Same observer timings and staggered pill-pop motion as the original reveal.js. */
+.js .stackPage__header { opacity: 0; transform: translateY(14px); animation: stack-rise 0.6s ease forwards; }
+@keyframes stack-rise { to { opacity: 1; transform: none; } }
+.js [data-reveal]:not(.is-visible) { opacity: 0; }
+.js [data-reveal].is-visible { animation: reveal-up 0.75s cubic-bezier(0.2, 0.7, 0.2, 1) backwards; animation-delay: var(--d, 0s); }
+.js .stackList:not(.is-visible) .stackPill { opacity: 0; }
+.js .stackList.is-visible .stackPill { animation: pill-pop 0.55s cubic-bezier(0.34, 1.56, 0.64, 1) backwards; animation-delay: calc(var(--n, 0) * 55ms); }
+@keyframes reveal-up { from { opacity: 0; transform: translateY(32px); } }
+@keyframes pill-pop { from { opacity: 0; transform: translateY(18px) scale(0.8); } }
+
+@media (max-width: 640px) {
+  .stackPage { padding-bottom: 3rem; }
+  .stackGroup { padding: 1.5rem 0; }
+  .stackGroup .stackPill { height: 40px; font-size: 1rem; }
+  .stackBack { font-size: 0.75rem; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .js .stackPage__header, .js [data-reveal].is-visible, .js .stackList.is-visible .stackPill { opacity: 1; transform: none; animation: none; }
+  .stackPill, .stackPill__logo, .stackBack { transition: none; }
+}

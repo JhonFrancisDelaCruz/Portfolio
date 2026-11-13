@@ -1,0 +1,22 @@
+# Secrets and local configuration
+.env
+.env.*
+!.env.example
+
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+*.sqlite3
+
+# Frontend dependencies and builds
+node_modules/
+dist/
+coverage/
+
+# Local uploads and editor files
+media/
+.DS_Store
+.vscode/
+.idea/

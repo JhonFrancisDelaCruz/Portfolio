@@ -1,0 +1,99 @@
+/* Reference layout: intro + social tiles + statement, then skills + work + interests. */
+.home-page { width: min(950px, calc(100% - 48px)); }
+.site-header { width: min(950px, calc(100% - 48px)); }
+.nav-bar { min-height: 56px; padding: 0 2px; border: 0; border-radius: 0; background: transparent; backdrop-filter: none; }
+.nav-links { margin-left: auto; }
+
+.home-bento-grid { grid-template-columns: repeat(12, minmax(0, 1fr)); gap: 12px; }
+.home-bento-grid .intro-card,
+.home-bento-grid .social-card,
+.home-bento-grid .headline-card { min-height: 262px; }
+.home-bento-grid .intro-card { grid-column: span 4; display: flex; flex-direction: column; align-items: flex-start; justify-content: space-between; padding: 22px; }
+.intro-person { display: flex; align-items: center; gap: 13px; }
+.home-bento-grid .profile-photo { width: 60px; height: 60px; flex: 0 0 auto; border-radius: 50%; }
+.intro-card h2 { max-width: 240px; margin: 20px 0 9px; color: var(--text-primary); font-size: 23px; letter-spacing: -0.8px; line-height: 1.15; }
+.intro-copy { max-width: 260px; padding-right: 18px; color: var(--text-muted); font-size: 12px; font-style: italic; line-height: 1.7; }
+.card-arrow { display: grid; width: 34px; height: 34px; flex: 0 0 auto; place-items: center; border: 0; border-radius: 50%; color: #1A1A1A; background: #FFFFFF; text-decoration: none; transition: transform 160ms ease, background-color 160ms ease; }
+.card-arrow:hover { transform: translateY(-2px); background: #CCCCCC; }
+.intro-arrow { position: absolute; right: 18px; bottom: 18px; }
+
+.home-bento-grid .social-card { grid-column: span 2; display: flex; flex-direction: column; padding: 17px; }
+.social-grid { display: grid; flex: 1; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px; margin-top: 13px; }
+.social-tile { display: grid; min-width: 0; aspect-ratio: 1; place-items: center; border: 1px solid #333333; border-radius: 8px; color: #FFFFFF; background: #202020; text-decoration: none; transition: border-color 160ms ease, color 160ms ease, background-color 160ms ease; }
+.social-tile:hover { border-color: #333333; color: var(--accent); background: #202020; }
+
+.home-bento-grid .headline-card { grid-column: span 6; display: flex; flex-direction: column; align-items: flex-start; justify-content: center; padding: 28px; }
+.home-bento-grid .headline-card h1 { max-width: 480px; margin: 15px 0 0; font-size: clamp(32px, 4vw, 48px); font-weight: 720; letter-spacing: -2.8px; line-height: 0.99; }
+.home-bento-grid .headline-card h1 span { display: block; color: var(--accent); }
+.headline-note { margin-top: 17px; color: #808080; font-size: 11px; letter-spacing: 0.15px; }
+
+.home-bento-grid .skills-card { grid-column: span 3; min-height: 244px; display: flex; flex-direction: column; justify-content: space-between; padding: 17px; }
+.skill-icon-grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 7px; }
+.skill-icon-tile { display: grid; min-height: 42px; place-items: center; border-radius: 6px; background: #1A1A1A; }
+.skill-icon-tile img { display: block; width: 25px; height: 25px; object-fit: contain; }
+.card-bottom-row { display: flex; align-items: flex-end; justify-content: space-between; gap: 10px; }
+.card-bottom-row h2 { margin: 5px 0 0; color: var(--text-primary); font-size: 19px; letter-spacing: -0.55px; line-height: 1.15; }
+
+.home-bento-grid .work-card { grid-column: span 6; min-height: 244px; display: flex; flex-direction: column; justify-content: flex-end; padding: 17px; }
+.project-watermark { position: absolute; top: 15px; right: 16px; color: #FFFFFF; font-size: 33px; font-weight: 800; letter-spacing: 2px; line-height: 1; opacity: 0.045; pointer-events: none; }
+.project-heading-row { position: relative; z-index: 1; margin: 0 0 12px; }
+.project-heading-row h2 { font-size: 20px; }
+.project-all-link { color: #CCCCCC; }
+.home-project-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 9px; }
+.home-project-tile { position: relative; display: block; min-width: 0; height: 125px; overflow: hidden; border: 1px solid #333333; border-radius: 7px; background: #1A1A1A; }
+.home-project-tile img { display: block; width: 100%; height: 100%; object-fit: cover; transition: transform 220ms ease; }
+.home-project-tile:hover img { transform: scale(1.035); }
+.home-project-caption { position: absolute; right: 0; bottom: 0; left: 0; padding: 7px 8px; color: #FFFFFF; background: rgba(17, 17, 17, 0.78); font-size: 10px; line-height: 1.2; }
+
+.home-bento-grid .hobbies-card { grid-column: span 3; min-height: 244px; display: flex; flex-direction: column; justify-content: space-between; padding: 17px; }
+.interests-visual { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 7px; min-height: 138px; }
+.interest-icon-tile { display: grid; min-height: 62px; place-items: center; border: 1px solid #333333; border-radius: 7px; background: #1A1A1A; }
+.interest-icon-tile img { width: 30px; height: 30px; object-fit: contain; }
+.interests-bottom-row h2 { max-width: 155px; font-size: 16px; }
+
+.site-footer { width: min(950px, calc(100% - 48px)); align-items: center; padding: 20px 2px 24px; }
+.footer-wordmark { color: var(--text-primary); font-size: 13px; font-weight: 700; text-decoration: none; }
+.footer-wordmark span { color: var(--accent); }
+.footer-nav { display: flex; flex-wrap: wrap; gap: 17px; }
+.footer-nav a { color: #808080; font-size: 10px; text-decoration: none; }
+.footer-nav a:hover { color: var(--text-primary); }
+.footer-copy { color: #808080; font-size: 10px; }
+
+@media (max-width: 900px) {
+  .home-page, .site-header, .site-footer { width: min(720px, calc(100% - 36px)); }
+  .home-bento-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .home-bento-grid .intro-card, .home-bento-grid .social-card, .home-bento-grid .skills-card, .home-bento-grid .hobbies-card { grid-column: span 1; }
+  .home-bento-grid .headline-card, .home-bento-grid .work-card { grid-column: span 2; }
+  .home-bento-grid .headline-card { order: 1; }
+  .home-bento-grid .social-card { order: 2; }
+  .home-bento-grid .skills-card { order: 3; }
+  .home-bento-grid .work-card { order: 4; }
+  .home-bento-grid .hobbies-card { order: 5; }
+  .home-bento-grid .headline-card h1 { max-width: 580px; font-size: clamp(38px, 6vw, 54px); }
+}
+
+@media (max-width: 760px) {
+  .home-page, .site-header, .site-footer { width: calc(100% - 28px); }
+  .home-bento-grid { grid-template-columns: minmax(0, 1fr); gap: 9px; }
+  .home-bento-grid .intro-card, .home-bento-grid .social-card, .home-bento-grid .headline-card, .home-bento-grid .skills-card, .home-bento-grid .work-card, .home-bento-grid .hobbies-card { grid-column: 1; min-height: auto; padding: 18px; }
+  .home-bento-grid .intro-card { min-height: 220px; }
+  .home-bento-grid .headline-card { min-height: 205px; }
+  .home-bento-grid .social-card { min-height: 150px; }
+  .social-grid { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+  .social-tile { aspect-ratio: 1.2; }
+  .home-bento-grid .skills-card { min-height: 205px; }
+  .home-bento-grid .work-card { min-height: 238px; }
+  .home-bento-grid .hobbies-card { min-height: 210px; }
+  .interests-visual { min-height: 112px; grid-template-columns: repeat(4, minmax(0, 1fr)); }
+  .interest-icon-tile { min-height: 76px; }
+  .site-footer { flex-direction: row; flex-wrap: wrap; }
+  .footer-nav { order: 3; width: 100%; }
+}
+
+@media (max-width: 520px) {
+  .home-page { margin-top: 26px; }
+  .home-bento-grid .headline-card h1 { font-size: clamp(35px, 10vw, 46px); letter-spacing: -2px; }
+  .home-project-tile { height: 105px; }
+  .project-watermark { font-size: 28px; }
+  .footer-nav { gap: 13px; }
+}
