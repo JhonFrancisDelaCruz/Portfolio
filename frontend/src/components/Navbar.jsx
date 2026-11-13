@@ -11,17 +11,7 @@ const navigation = [
   { label: 'Contact', to: '/contact' },
 ]
 
-function newVisitorId() {
-  try {
-    const saved = window.sessionStorage.getItem('liveId')
-    if (saved) return saved
-    const id = window.crypto?.randomUUID?.() || `v${Date.now().toString(36)}${Math.random().toString(36).slice(2, 12)}`
-    window.sessionStorage.setItem('liveId', id)
-    return id
-  } catch {
-    return `v${Date.now().toString(36)}${Math.random().toString(36).slice(2, 12)}`
-  }
-}
+
 
 export default function Navbar() {
   const navRef = useRef(null)
