@@ -57,36 +57,17 @@ button:focus-visible, a:focus-visible { outline: 2px solid var(--accent); outlin
 .bento-grid { display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); gap: 12px; }
 .bento-card { position: relative; min-width: 0; overflow: hidden; border: 0px solid var(--card-border); border-radius: var(--card-radius); background: var(--card-bg); transition: border-color 180ms ease; }
 .bento-card:hover { border-color: #333333; }
-.profile-card, .headline-card, .social-card, .skills-card, .work-card, .contact-card { padding: 24px; }
-.profile-card { grid-column: span 4; min-height: 310px; display: flex; flex-direction: column; align-items: flex-start; justify-content: space-between; }
-.profile-photo { width: 94px; height: 94px; border: 0px solid #333333; border-radius: 9px; object-fit: cover; object-position: center 8%; background: #202020; }
-.profile-card h2, .card-heading-row h2, .contact-card h2, .content-card h2, .project-detail-content h2 { margin: 6px 0 9px; color: var(--text-primary); font-size: 20px; line-height: 1.3; letter-spacing: -0.55px; }
 .card-kicker, .page-eyebrow { margin: 0; color: var(--text-dim); font-size: 10px; font-weight: 650; letter-spacing: 1.3px; line-height: 1.5; text-transform: uppercase; }
 .muted-copy { color: var(--text-muted); font-size: 13px; line-height: 1.75; }
 .text-link, .small-link { display: inline-flex; align-items: center; gap: 7px; color: #CCCCCC; font-size: 12px; text-decoration: none; transition: color 160ms ease; }
 .text-link:hover, .small-link:hover { color: var(--accent); }
-.headline-card { grid-column: span 8; min-height: 310px; display: flex; flex-direction: column; align-items: flex-start; justify-content: center; }
-.headline-card h1 { max-width: 640px; margin: 16px 0 14px; color: var(--text-primary); font-size: clamp(32px, 5vw, 54px); font-weight: 580; letter-spacing: -2.8px; line-height: 1.04; }
-.headline-card h1 span, .page-title span { color: var(--accent); }
-.headline-card .muted-copy { max-width: 560px; }
-.headline-actions, .project-actions { display: flex; flex-wrap: wrap; gap: 9px; margin-top: 20px; }
 .button { display: inline-flex; min-height: 40px; align-items: center; justify-content: center; gap: 8px; padding: 0 13px; border: 1px solid transparent; border-radius: 7px; font-size: 12px; text-decoration: none; transition: color 160ms ease, border-color 160ms ease, background-color 160ms ease; }
 .button--primary { color: #000000; background: var(--accent); }
 .button--primary:hover { background: #CCCCCC; }
 .button--quiet { border-color: #333333; color: #CCCCCC; background: transparent; }
 .button--quiet:hover { border-color: #333333; color: #FFFFFF; }
-.social-card { grid-column: span 4; min-height: 226px; }
-.subtle-icon { color: #808080; }
-.social-links { display: grid; gap: 2px; margin-top: 16px; }
-.social-links a { display: flex; min-height: 40px; align-items: center; gap: 10px; color: #CCCCCC; font-size: 12px; text-decoration: none; }
-.social-links a:hover, .project-teaser:hover strong { color: #CCCCCC; }
-.social-arrow { margin-left: auto; color: #808080; }
-.skills-card { grid-column: span 8; min-height: 226px; }
 .skill-pills { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 18px; }
 .skill-pill { display: inline-flex; min-height: 30px; align-items: center; padding: 0 10px; border: 1px solid #333333; border-radius: 6px; color: #CCCCCC; background: #1A1A1A; font-size: 11px; }
-.work-card { grid-column: span 8; min-height: 300px; }
-.hobbies-card { grid-column: span 4; min-height: 300px; padding: 24px; }
-.hobbies-card h2 { margin: 8px 0 14px; color: var(--text-primary); font-size: 20px; letter-spacing: -0.5px; }
 .interest-list { display: grid; gap: 12px; margin: 16px 0 0; padding: 0; list-style: none; }
 .interest-list li { display: flex; align-items: center; gap: 9px; color: var(--text-muted); font-size: 12px; }
 .interest-list li::before { width: 6px; height: 6px; border-radius: 50%; background: var(--accent); content: ''; }
@@ -167,14 +148,6 @@ button:focus-visible, a:focus-visible { outline: 2px solid var(--accent); outlin
   .talk-link { justify-content: space-between; margin-top: 4px; }
   .page-container, .site-footer { width: calc(100% - 28px); }
   .page-container { margin-top: 30px; margin-bottom: 50px; }
-  .bento-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 9px; }
-  .profile-card, .headline-card, .social-card, .skills-card, .work-card, .hobbies-card, .contact-card { grid-column: span 2; min-height: auto; padding: 20px; }
-  .profile-card { display: grid; grid-template-columns: 74px 1fr; column-gap: 16px; align-items: center; }
-  .profile-photo { width: 74px; height: 74px; grid-row: span 2; }
-  .profile-card .text-link { grid-column: 2; margin-top: 8px; }
-  .headline-card h1 { font-size: clamp(34px, 10vw, 48px); letter-spacing: -2px; }
-  .work-card { min-height: 240px; }
-  .hobbies-card { min-height: 190px; }
   .contact-card { min-height: 120px; align-items: center; }
   .site-footer { font-size: 9px; }
   .page-title { letter-spacing: -2.4px; }
@@ -185,7 +158,7 @@ button:focus-visible, a:focus-visible { outline: 2px solid var(--accent); outlin
 
 @media (max-width: 520px) {
   .eyebrow-row { font-size: 10px; }
-  .headline-card, .profile-card, .social-card, .skills-card, .work-card, .hobbies-card, .contact-card, .content-card, .skill-group { padding: 17px; }
+  .contact-card, .content-card, .skill-group { padding: 17px; }
   .content-grid, .skills-grid, .contact-content-grid { grid-template-columns: 1fr; }
   .content-card--wide { grid-column: auto; }
   .project-teaser { grid-template-columns: 54px 1fr auto; gap: 9px; }

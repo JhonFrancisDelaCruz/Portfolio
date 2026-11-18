@@ -5,8 +5,7 @@ const currentYear = new Date().getFullYear()
 const navigation = [
   { label: 'Home', to: '/' },
   { label: 'About', to: '/about' },
-  { label: 'Stack', to: '/skills' },
-  { label: 'Projects', to: '/projects' },
+  { label: 'Work', to: '/projects' },
   { label: 'Contact', to: '/contact' },
 ]
 
@@ -20,11 +19,14 @@ export default function SiteLayout() {
       </main>
 
       <footer className="site-footer">
-        <Link className="footer-wordmark" to="/">Francis<span>.dev</span></Link>
-        <nav className="footer-nav" aria-label="Footer navigation">
-          {navigation.map(({ label, to }) => <Link key={to} to={to}>{label}</Link>)}
-        </nav>
-        <span className="footer-copy">© {currentYear} Jhon Francis Dela Cruz. All rights reserved.</span>
+        <div className="site-footer-inner">
+          <nav className="footer-nav" aria-label="Footer navigation">
+            {navigation.map(({ label, to }) => (
+              <Link key={to} to={to}>{label}</Link>
+            ))}
+          </nav>
+          <span className="footer-copy">© All rights reserved by Jhon Francis Dela Cruz</span>
+        </div>
       </footer>
     </div>
   )

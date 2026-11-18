@@ -16,7 +16,7 @@
   --glow: rgba(255, 255, 255, 0);
   --grid-line: rgba(128, 128, 128, 0.14);
   --logo-full: grayscale(1) brightness(0) invert(1);
-  --font-body: 'Kumbh Sans', system-ui, sans-serif;
+  --font-body: 'Plus Jakarta Sans', Inter, system-ui, sans-serif;
   --font-name: 'Alfa Slab One', Georgia, serif;
   --font-title: 'Jaro', 'Arial Black', sans-serif;
   color: #FFFFFF;
@@ -68,8 +68,14 @@ body { background-image: linear-gradient(to right, var(--grid-line) 1px, transpa
 .cursor-grid-reveal { background-image: linear-gradient(to right, rgba(204, 204, 204, 0.18) 1px, transparent 1px), linear-gradient(to bottom, rgba(204, 204, 204, 0.18) 1px, transparent 1px); }
 
 /* Home headline: orange accent like the reference image */
-.home-bento-grid .headline-card h1 { color: #f5a623; }
-.home-bento-grid .headline-card h1 span { color: #f5a623; }
+.home-bento-grid .headline-card h1,
+.home-bento-grid .headline-card h2 {
+  color: #E58A1F;
+}
+.home-bento-grid .headline-card h1 span,
+.home-bento-grid .headline-card h2 span {
+  color: #E58A1F;
+}
 
 /* Skills page: no background on pills */
 .stackGroup .stackPill { background: transparent; }

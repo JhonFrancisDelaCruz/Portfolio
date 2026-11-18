@@ -1,250 +1,604 @@
-/* Reference layout matching the picture: intro + social 2x2 + big accent headline, then skills + projects + hobbies */
+/* Bento home layout */
 
-/* ── Page shell ─────────────────────────────────────────────────────────── */
-.home-page { width: min(1040px, calc(100% - 48px)); margin-top: 32px; margin-bottom: 72px; }
+/* ── Container & Bento Grid Shell ────────────────────────────────────────── */
+.home-page {
+  width: min(1080px, calc(100% - 36px));
+  /* Offset by the fixed nav height so the nav never covers the first row */
+  margin: calc(var(--nav-h, 5rem) + 36px) auto 72px;
+}
 
-/* ── Top row: intro (4) | social 2×2 (2) | big headline (6) ─────────────── */
-.home-bento-grid { display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); gap: 12px; }
-
-/* Row 1 cards share the same height */
-.home-bento-grid .intro-card,
-.home-bento-grid .social-card,
-.home-bento-grid .headline-card { min-height: 280px; }
-
-/* ── Intro card ─────────────────────────────────────────────────────────── */
-.home-bento-grid .intro-card {
-  grid-column: span 4;
+.home-bento-grid {
   display: flex;
   flex-direction: column;
-  align-items: flex-start;
+  gap: 16px;
+  width: 100%;
+}
+
+.home-top-row {
+  display: grid;
+  grid-template-columns: 3.8fr 2.8fr 5.4fr;
+  gap: 16px;
+  align-items: stretch;
+  height: 300px;
+}
+
+.home-bottom-row {
+  display: grid;
+  grid-template-columns: 3.3fr 5.7fr 3.0fr;
+  gap: 16px;
+  align-items: stretch;
+  height: 280px;
+}
+
+/* ── Common Bento Card Styles ────────────────────────────────────────────── */
+.bento-card {
+  position: relative;
+  background-color: #18181a;
+  border: 1px solid rgba(255, 255, 255, 0.07);
+  border-radius: 8px;
+  box-shadow: 0 12px 32px -8px rgba(0, 0, 0, 0.55);
+  overflow: hidden;
+  transition: border-color 0.25s ease, box-shadow 0.25s ease, transform 0.25s ease;
+}
+
+.bento-card:hover {
+  border-color: rgba(255, 255, 255, 0.15);
+}
+
+.card-bottom-row {
+  display: flex;
+  align-items: flex-end;
   justify-content: space-between;
-  padding: 26px;
+  gap: 12px;
 }
-.intro-card .card-kicker { margin-bottom: 6px; }
-.intro-card h2 {
-  margin: 12px 0 10px;
-  color: var(--text-primary);
-  font-size: 26px;
-  font-weight: 700;
-  letter-spacing: -0.8px;
-  line-height: 1.1;
-}
-.intro-copy {
-  max-width: 280px;
-  color: var(--text-muted);
-  font-size: 12px;
-  font-style: italic;
-  line-height: 1.75;
-}
-.card-arrow {
-  display: grid;
-  width: 34px;
-  height: 34px;
-  flex: 0 0 auto;
-  place-items: center;
-  border: 0;
-  border-radius: 50%;
-  color: #1A1A1A;
-  background: #FFFFFF;
-  text-decoration: none;
-  transition: transform 160ms ease, background-color 160ms ease;
-}
-.card-arrow:hover { transform: translateY(-2px); background: #CCCCCC; }
-.intro-arrow { position: absolute; right: 18px; bottom: 18px; }
 
-/* ── Social 2×2 card ────────────────────────────────────────────────────── */
-.home-bento-grid .social-card {
-  grid-column: span 2;
+.card-kicker {
+  font-size: 0.74rem;
+  font-weight: 500;
+  color: #8a8a92;
+  margin: 0 0 3px;
+  text-transform: capitalize;
+  letter-spacing: 0.01em;
+}
+
+.card-heading {
+  font-size: 1.45rem;
+  font-weight: 700;
+  color: #ffffff;
+  letter-spacing: -0.02em;
+  line-height: 1.15;
+  margin: 0;
+}
+
+.ref-circle-arrow {
+  display: inline-flex;
+  width: 36px;
+  height: 36px;
+  flex-shrink: 0;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  background-color: #ffffff;
+  color: #111111;
+  text-decoration: none;
+  transition: transform 0.2s ease, background-color 0.2s ease, box-shadow 0.2s ease;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.35);
+}
+
+.ref-circle-arrow:hover {
+  transform: scale(1.08) translate(1px, -1px);
+  background-color: #f4f4f5;
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.45);
+}
+
+.ref-circle-arrow:focus-visible,
+.social-card:focus-visible,
+.laptop-frame:focus-visible {
+  outline: 2px solid #ffffff;
+  outline-offset: 3px;
+}
+
+/* ── 1. Profile Card (Top Left) ──────────────────────────────────────────── */
+.home-bento-grid .intro-card {
+  height: 100%;
+  padding: 26px 26px 22px 26px;
   display: flex;
   flex-direction: column;
-  padding: 14px;
+  justify-content: space-between;
+  position: relative;
 }
-.social-grid {
+
+.intro-card__top {
+  display: flex;
+  flex-direction: column;
+}
+
+.intro-card__name {
+  margin: 8px 0 10px;
+  color: #ffffff;
+  font-size: clamp(1.65rem, 2vw, 1.95rem);
+  font-weight: 700;
+  letter-spacing: -0.035em;
+  line-height: 1.14;
+}
+
+.intro-copy {
+  margin: 0;
+  color: #9c9ca6;
+  font-size: 0.77rem;
+  font-style: italic;
+  line-height: 1.58;
+  max-width: 320px;
+}
+
+.intro-card__bottom {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: auto;
+}
+
+/* ── 2. Social Cards (Top Middle 2x2 Grid) ───────────────────────────────── */
+.social-cards-grid {
   display: grid;
-  flex: 1;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 10px;
+  grid-template-columns: repeat(2, 1fr);
+  grid-template-rows: repeat(2, 1fr);
+  gap: 14px;
   height: 100%;
 }
-.social-tile {
-  display: grid;
-  min-width: 0;
-  flex: 1;
-  aspect-ratio: 1;
-  place-items: center;
-  border: 1px solid #333;
-  border-radius: 10px;
-  color: #FFFFFF;
-  background: #1a1a1a;
-  text-decoration: none;
-  transition: border-color 160ms ease, background-color 160ms ease, transform 160ms ease;
-}
-.social-tile:hover {
-  border-color: #666;
-  background: #252525;
-  transform: translateY(-2px);
-}
 
-/* ── Big headline card ──────────────────────────────────────────────────── */
-.home-bento-grid .headline-card {
-  grid-column: span 6;
+.social-cards-grid .social-card {
+  min-height: 0;
+  height: 100%;
+  width: 100%;
   display: flex;
-  flex-direction: column;
-  align-items: flex-start;
+  align-items: center;
   justify-content: center;
-  padding: 32px;
-}
-.home-bento-grid .headline-card h1 {
-  margin: 0;
-  color: #f5a623;
-  font-size: clamp(36px, 4.5vw, 60px);
-  font-weight: 800;
-  letter-spacing: -2px;
-  line-height: 1.0;
-}
-.home-bento-grid .headline-card h1 span { display: block; color: #f5a623; }
-
-/* ── Bottom row: skills (3) | projects (6) | hobbies (3) ────────────────── */
-.home-bento-grid .skills-card {
-  grid-column: span 3;
-  min-height: 260px;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  padding: 18px;
-}
-.skill-icon-grid {
-  display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 8px;
-  flex: 1;
-}
-.skill-icon-tile {
-  display: grid;
-  min-height: 44px;
-  place-items: center;
-  border-radius: 6px;
-  /* NO background — transparent */
-}
-.skill-icon-tile img { display: block; width: 26px; height: 26px; object-fit: contain; }
-.card-bottom-row { display: flex; align-items: flex-end; justify-content: space-between; gap: 10px; margin-top: 12px; }
-.card-bottom-row h2 { margin: 4px 0 0; color: var(--text-primary); font-size: 20px; font-weight: 700; letter-spacing: -0.5px; }
-
-.home-bento-grid .work-card {
-  grid-column: span 6;
-  min-height: 260px;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  padding: 18px;
-}
-.project-watermark {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  color: #FFFFFF;
-  font-size: 36px;
-  font-weight: 900;
-  letter-spacing: 4px;
-  white-space: nowrap;
-  opacity: 0.05;
-  pointer-events: none;
-}
-.project-heading-row { position: relative; z-index: 1; margin-top: 10px; }
-.project-heading-row h2 { font-size: 20px; font-weight: 700; }
-.project-all-link { color: #CCCCCC; }
-.home-project-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 9px; flex: 1; }
-.home-project-tile {
-  position: relative;
-  display: block;
-  min-width: 0;
-  height: 130px;
-  overflow: hidden;
-  border: 1px solid #333;
   border-radius: 8px;
-  background: #1A1A1A;
+  background-color: #18181a;
+  border: 1px solid rgba(255, 255, 255, 0.07);
+  color: #ffffff;
+  text-decoration: none;
+  transition: transform 0.2s ease, border-color 0.2s ease, background-color 0.2s ease;
+  padding: 0;
 }
-.home-project-tile img { display: block; width: 100%; height: 100%; object-fit: cover; transition: transform 220ms ease; }
-.home-project-tile:hover img { transform: scale(1.04); }
-.home-project-caption { position: absolute; right: 0; bottom: 0; left: 0; padding: 7px 10px; color: #FFFFFF; background: rgba(0,0,0,0.75); font-size: 10px; line-height: 1.3; }
 
-.home-bento-grid .hobbies-card {
-  grid-column: span 3;
-  min-height: 260px;
+.social-cards-grid .social-card svg {
+  display: block;
+  stroke: currentColor;
+  transition: transform 0.2s ease;
+}
+
+.social-cards-grid .social-card:hover {
+  transform: translateY(-3px);
+  border-color: rgba(255, 255, 255, 0.2);
+  background-color: #212124;
+}
+
+.social-cards-grid .social-card:hover svg {
+  transform: scale(1.08);
+}
+
+/* ── 3. Main Highlight Card (Top Right) ──────────────────────────────────── */
+.home-bento-grid .headline-card {
+  height: 100%;
+  padding: 34px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+}
+
+.home-bento-grid .headline-card .headline-title,
+.home-bento-grid .headline-card h2 {
+  margin: 0;
+  color: #ea871e;
+  font-size: clamp(2.3rem, 3.4vw, 3.2rem);
+  font-weight: 800;
+  letter-spacing: -0.035em;
+  line-height: 1.06;
+}
+
+.home-bento-grid .headline-card .headline-title span,
+.home-bento-grid .headline-card h2 span {
+  display: block;
+  color: #ea871e;
+}
+
+/* ── 4. Skills Card (Bottom Left) ────────────────────────────────────────── */
+.home-bento-grid .skills-card {
+  height: 100%;
+  padding: 22px 24px 20px;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  padding: 0;
-  overflow: hidden;
 }
-.hobbies-image-wrap {
-  flex: 1;
+
+.skills-icon-grid-4col {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 10px 8px;
+  margin-bottom: auto;
+}
+
+.skill-ref-tile {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 34px;
+  border-radius: 8px;
+  transition: transform 0.2s ease;
+}
+
+.skill-ref-tile:hover {
+  transform: translateY(-3px) scale(1.12);
+}
+
+.skill-ref-tile img {
+  display: block;
+  width: 26px;
+  height: 26px;
+  object-fit: contain;
+}
+
+/* ── 5. Projects Card (Bottom Middle) ────────────────────────────────────── */
+.home-bento-grid .work-card {
+  height: 100%;
+  padding: 22px 26px 20px;
   position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
   overflow: hidden;
 }
-.hobbies-bg-img {
+
+.projects-watermark {
+  position: absolute;
+  top: 22px;
+  left: 0;
+  right: 0;
+  text-align: center;
+  font-size: clamp(1.4rem, 2.4vw, 2.1rem);
+  font-weight: 900;
+  letter-spacing: 0.16em;
+  color: #ffffff;
+  opacity: 0.06;
+  pointer-events: none;
+  user-select: none;
+  white-space: nowrap;
+  text-transform: uppercase;
+}
+
+.laptop-mockup-wrapper {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 14px;
+  margin: 4px 0 10px;
+  position: relative;
+  z-index: 1;
+}
+
+.laptop-frame {
+  display: block;
+  text-decoration: none;
+  transition: transform 0.25s ease;
+}
+
+.laptop-frame:hover {
+  transform: translateY(-4px) scale(1.02);
+}
+
+.laptop-screen {
+  position: relative;
+  background: #0d0d0f;
+  border: 3px solid #28282d;
+  border-radius: 8px 8px 0 0;
+  overflow: hidden;
+  box-shadow: 0 10px 24px rgba(0, 0, 0, 0.45);
+}
+
+.laptop-screen::before {
+  content: '';
+  position: absolute;
+  top: 2px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 3px;
+  height: 3px;
+  border-radius: 50%;
+  background: #52525b;
+  z-index: 2;
+}
+
+.laptop-screen img {
   display: block;
   width: 100%;
-  height: 100%;
+  aspect-ratio: 16 / 10;
   object-fit: cover;
-  object-position: center top;
-  transition: transform 300ms ease;
 }
-.hobbies-card:hover .hobbies-bg-img { transform: scale(1.04); }
-.interests-bottom-row {
-  padding: 14px 16px;
-  background: rgba(0,0,0,0.6);
-  backdrop-filter: blur(4px);
-}
-.interests-bottom-row h2 { font-size: 16px; font-weight: 700; }
 
-/* ── Footer ─────────────────────────────────────────────────────────────── */
-.site-footer { width: min(1040px, calc(100% - 48px)); align-items: center; padding: 20px 2px 24px; }
-.footer-wordmark { color: var(--text-primary); font-size: 13px; font-weight: 700; text-decoration: none; }
-.footer-wordmark span { color: var(--accent); }
-.footer-nav { display: flex; flex-wrap: wrap; gap: 17px; }
-.footer-nav a { color: #808080; font-size: 10px; text-decoration: none; }
-.footer-nav a:hover { color: var(--text-primary); }
-.footer-copy { color: #808080; font-size: 10px; }
+.laptop-base {
+  position: relative;
+  width: 106%;
+  left: -3%;
+  height: 5px;
+  background: linear-gradient(to bottom, #3f3f46, #232326);
+  border-radius: 0 0 5px 5px;
+  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.45);
+}
+
+.laptop-base::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 24px;
+  height: 2px;
+  background: #18181b;
+  border-radius: 0 0 2px 2px;
+}
+
+/* ── 6. Hobbies / 3D Art Card (Bottom Right) ─────────────────────────────── */
+.home-bento-grid .hobbies-card {
+  height: 100%;
+  padding: 18px 20px 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.hobbies-image-box {
+  width: 100%;
+  border-radius: 14px;
+  overflow: hidden;
+  background: #111113;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.35);
+  margin-bottom: 8px;
+}
+
+.hobbies-image-box img {
+  display: block;
+  width: 100%;
+  height: 140px;
+  object-fit: cover;
+  transition: transform 0.3s ease;
+}
+
+.hobbies-card:hover .hobbies-image-box img {
+  transform: scale(1.05);
+}
+
+/* ── Footer ──────────────────────────────────────────────────────────────── */
+.site-footer {
+  width: 100%;
+  margin-top: auto;
+  padding: 52px 24px 40px;
+  border-top: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.site-footer-inner {
+  max-width: 1080px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+  text-align: center;
+}
+
+.footer-wordmark {
+  color: #ffffff;
+  font-size: 1.55rem;
+  font-weight: 700;
+  letter-spacing: -0.03em;
+  text-decoration: none;
+}
+
+.footer-wordmark .logo-dot {
+  color: #ffffff;
+}
+
+.footer-nav {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  gap: 28px;
+}
+
+.footer-nav a {
+  color: #8b8b93;
+  font-size: 0.88rem;
+  font-weight: 500;
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+.footer-nav a:hover {
+  color: #ffffff;
+}
+
+.footer-copy {
+  color: #63636b;
+  font-size: 0.78rem;
+  margin-top: 4px;
+}
 
 /* ── Responsive ──────────────────────────────────────────────────────────── */
+
+/* Tablet & small desktops (769px – 1024px) */
 @media (max-width: 1024px) {
-  .home-bento-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-  .home-bento-grid .intro-card { grid-column: span 1; }
-  .home-bento-grid .social-card { grid-column: span 1; }
-  .home-bento-grid .headline-card { grid-column: span 2; }
-  .home-bento-grid .skills-card { grid-column: span 1; }
-  .home-bento-grid .work-card { grid-column: span 2; }
-  .home-bento-grid .hobbies-card { grid-column: span 1; }
+  .home-top-row,
+  .home-bottom-row {
+    grid-template-columns: 1fr 1fr;
+    height: auto;
+    gap: 14px;
+  }
+
+  .home-bento-grid .intro-card {
+    grid-column: 1;
+    height: 290px;
+  }
+
+  .social-cards-grid {
+    grid-column: 2;
+    height: 290px;
+  }
+
+  .home-bento-grid .headline-card {
+    grid-column: span 2;
+    height: 200px;
+  }
+
+  .home-bento-grid .skills-card {
+    grid-column: 1;
+    height: 260px;
+  }
+
+  .home-bento-grid .hobbies-card {
+    grid-column: 2;
+    height: 260px;
+  }
+
+  .home-bento-grid .work-card {
+    grid-column: span 2;
+    height: 260px;
+  }
 }
 
-@media (max-width: 760px) {
-  .home-page { width: calc(100% - 28px); }
-  .home-bento-grid { grid-template-columns: minmax(0, 1fr); gap: 9px; }
+/* Mobile (≤ 768px) */
+@media (max-width: 768px) {
+  .home-page {
+    width: calc(100% - 28px);
+    margin: calc(var(--nav-h, 5rem) + 20px) auto 48px;
+  }
+
+  .home-top-row,
+  .home-bottom-row {
+    display: flex;
+    flex-direction: column;
+    height: auto;
+    gap: 14px;
+  }
+
+  .bento-card {
+    border-radius: 20px;
+  }
+
   .home-bento-grid .intro-card,
-  .home-bento-grid .social-card,
   .home-bento-grid .headline-card,
   .home-bento-grid .skills-card,
   .home-bento-grid .work-card,
-  .home-bento-grid .hobbies-card { grid-column: 1; min-height: auto; }
-  .home-bento-grid .intro-card { min-height: 220px; padding: 20px; }
-  .home-bento-grid .headline-card { min-height: 180px; padding: 24px; }
-  .home-bento-grid .social-card { padding: 14px; min-height: 160px; }
-  .social-grid { grid-template-columns: repeat(4, minmax(0, 1fr)); }
-  .social-tile { aspect-ratio: 1.2; }
-  .home-bento-grid .skills-card { min-height: 220px; }
-  .skill-icon-grid { grid-template-columns: repeat(4, minmax(0, 1fr)); }
-  .home-bento-grid .work-card { min-height: 240px; }
-  .home-bento-grid .hobbies-card { min-height: 240px; }
-  .site-footer { flex-direction: row; flex-wrap: wrap; }
-  .footer-nav { order: 3; width: 100%; }
+  .home-bento-grid .hobbies-card {
+    height: auto;
+    min-height: 0;
+    max-height: none;
+  }
+
+  .home-bento-grid .intro-card {
+    padding: 24px;
+  }
+
+  .intro-card__name {
+    font-size: 1.85rem;
+  }
+
+  .social-cards-grid {
+    gap: 12px;
+    height: auto;
+  }
+
+  .social-cards-grid .social-card {
+    border-radius: 18px;
+    padding: 24px;
+    aspect-ratio: 1 / 1;
+    height: auto;
+  }
+
+  .home-bento-grid .headline-card {
+    padding: 28px 24px;
+    min-height: 180px;
+  }
+
+  .home-bento-grid .headline-card .headline-title,
+  .home-bento-grid .headline-card h2 {
+    font-size: 2.1rem;
+    letter-spacing: -0.03em;
+  }
+
+  .home-bento-grid .skills-card {
+    padding: 22px;
+  }
+
+  .skills-icon-grid-4col {
+    gap: 8px;
+    margin-bottom: 16px;
+  }
+
+  .skill-ref-tile img {
+    width: 25px;
+    height: 25px;
+  }
+
+  .home-bento-grid .work-card {
+    padding: 22px;
+  }
+
+  .projects-watermark {
+    font-size: 1.4rem;
+    top: 24px;
+  }
+
+  .laptop-mockup-wrapper {
+    gap: 10px;
+    margin: 12px 0 16px;
+  }
+
+  .home-bento-grid .hobbies-card {
+    padding: 20px;
+  }
+
+  .hobbies-image-box img {
+    height: 160px;
+  }
+
+  .site-footer {
+    padding: 36px 16px 28px;
+  }
+
+  .footer-nav {
+    gap: 18px;
+  }
 }
 
-@media (max-width: 520px) {
-  .home-page { margin-top: 20px; }
-  .home-bento-grid .headline-card h1 { font-size: clamp(32px, 10vw, 44px); letter-spacing: -1.5px; }
-  .home-project-tile { height: 105px; }
-  .project-watermark { font-size: 24px; }
-  .footer-nav { gap: 13px; }
+/* Very small mobile (≤ 380px) */
+@media (max-width: 380px) {
+  .intro-card__name {
+    font-size: 1.65rem;
+  }
+
+  .home-bento-grid .headline-card .headline-title,
+  .home-bento-grid .headline-card h2 {
+    font-size: 1.8rem;
+  }
+
+  .skills-icon-grid-4col {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  .laptop-mockup-wrapper {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .bento-card,
+  .social-card,
+  .social-card svg,
+  .skill-ref-tile,
+  .laptop-frame,
+  .ref-circle-arrow,
+  .hobbies-image-box img {
+    transition: none;
+  }
 }

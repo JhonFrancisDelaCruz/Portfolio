@@ -6,11 +6,10 @@ import api from '../services/api.js'
 const navigation = [
   { label: 'Home', to: '/', end: true },
   { label: 'About', to: '/about' },
-  { label: 'Stack', to: '/skills' },
-  { label: 'Projects', to: '/projects' },
+  { label: 'Stack', to: '/skills', hidden: true },
+  { label: 'Work', to: '/projects' },
   { label: 'Contact', to: '/contact' },
 ]
-
 
 export default function Navbar() {
   const navRef = useRef(null)
@@ -116,7 +115,8 @@ export default function Navbar() {
 
   useEffect(() => {
     let active = true
-    const visitorId = newVisitorId()
+    const visitorId = generateVisitorId()
+
     const refreshTotal = async () => {
       try {
         const { data } = await api.get('/views')
@@ -137,15 +137,19 @@ export default function Navbar() {
     }
 
     const leave = () => {
-      const url = `${(api.defaults.baseURL || '/api').replace(/\/$/, '')}/live`
-      const body = new Blob([JSON.stringify({ id: visitorId, leave: true })], { type: 'application/json' })
-      if (navigator.sendBeacon?.(url, body)) return
-      fetch(url, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ id: visitorId, leave: true }),
-        keepalive: true,
-      }).catch(() => {})
+      try {
+        const url = `${(api.defaults.baseURL || '/api').replace(/\/$/, '')}/live`
+        const body = new Blob([JSON.stringify({ id: visitorId, leave: true })], { type: 'application/json' })
+        if (navigator.sendBeacon?.(url, body)) return
+        fetch(url, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ id: visitorId, leave: true }),
+          keepalive: true,
+        }).catch(() => {})
+      } catch {
+        // Best-effort
+      }
     }
 
     const onVisibilityChange = () => {
@@ -184,51 +188,68 @@ export default function Navbar() {
       aria-label="Main navigation"
       id="mainNav"
     >
-      <Link className="nav__logo" to="/" onClick={closeMenu}>Francis.dev</Link>
+      <div className="nav__container">
+        {/* Left: Logo with clean typography */}
+        <Link className="nav__logo" to="/" onClick={closeMenu}>
+          Francis<span className="logo-dot">.dev</span>
+        </Link>
 
-      <div className="nav__right">
-        <span className="nav__views" title="Total visitors" aria-live="polite">
-          <Eye className="nav__viewsIcon" size={16} aria-hidden="true" />
-          <span id="views">{visitorCount}</span>
-          <span className="nav__live" id="liveWrap" title="Visitors browsing right now" hidden={liveCount === null}>
-            <span className="nav__liveDot" aria-hidden="true" />
-            <span id="live">{liveCount ?? 0}</span><span className="nav__liveLabel"> live</span>
-          </span>
-        </span>
-
+        {/* Center: Minimal navigation links */}
         <ul className="nav__links" id="navLinks">
-          {navigation.map(({ label, to, end }) => (
-            <li key={to}>
-              <NavLink to={to} end={end} onClick={closeMenu} className={({ isActive }) => isActive ? 'is-active' : undefined}>
+          {navigation.map(({ label, to, end, hidden }) => (
+            <li key={to} className={hidden ? 'nav-item--hidden' : undefined}>
+              <NavLink
+                to={to}
+                end={end}
+                onClick={closeMenu}
+                className={({ isActive }) => (isActive ? 'is-active' : undefined)}
+              >
                 {label}
               </NavLink>
             </li>
           ))}
         </ul>
 
-        <button
-          className="theme-toggle"
-          type="button"
-          aria-label={theme === 'dark' ? 'Switch to charcoal theme' : 'Switch to black theme'}
-          title={theme === 'dark' ? 'Switch to charcoal theme' : 'Switch to black theme'}
-          onClick={() => setTheme(nextTheme)}
-        >
-          {theme === 'dark' ? <Sun className="theme-toggle__sun" size={18} aria-hidden="true" /> : <Moon className="theme-toggle__moon" size={18} aria-hidden="true" />}
-        </button>
+        {/* Right: Visitor stats, Theme Toggle, and "Let's talk" button */}
+        <div className="nav__right">
+          <span className="nav__views" title="Total visitors" aria-live="polite">
+            <Eye className="nav__viewsIcon" size={14} aria-hidden="true" />
+            <span id="views">{visitorCount}</span>
+            <span className="nav__live" id="liveWrap" title="Visitors browsing right now" hidden={liveCount === null}>
+              <span className="nav__liveDot" aria-hidden="true" />
+              <span id="live">{liveCount ?? 0}</span>
+              <span className="nav__liveLabel"> live</span>
+            </span>
+          </span>
 
-        <button
-          className="nav__burger"
-          id="navBurger"
-          type="button"
-          aria-label={menuOpen ? 'Close menu' : 'Open menu'}
-          aria-expanded={menuOpen}
-          aria-controls="navLinks"
-          onClick={toggleMenu}
-        >
-          <span></span>
-          <span></span>
-          <span></span>
-        </button>
+          <button
+            className="theme-toggle"
+            type="button"
+            aria-label={theme === 'dark' ? 'Switch to charcoal theme' : 'Switch to black theme'}
+            title={theme === 'dark' ? 'Switch to charcoal theme' : 'Switch to black theme'}
+            onClick={() => setTheme(nextTheme)}
+          >
+            {theme === 'dark' ? <Sun className="theme-toggle__sun" size={16} aria-hidden="true" /> : <Moon className="theme-toggle__moon" size={16} aria-hidden="true" />}
+          </button>
+
+          <Link to="/contact" className="nav__talk-btn" onClick={closeMenu}>
+            Let&apos;s talk
+          </Link>
+
+          <button
+            className="nav__burger"
+            id="navBurger"
+            type="button"
+            aria-label={menuOpen ? 'Close menu' : 'Open menu'}
+            aria-expanded={menuOpen}
+            aria-controls="navLinks"
+            onClick={toggleMenu}
+          >
+            <span></span>
+            <span></span>
+            <span></span>
+          </button>
+        </div>
       </div>
     </nav>
   )
@@ -244,4 +265,17 @@ function formatVisitorCount(count) {
     }
   }
   return String(count)
+}
+
+function generateVisitorId() {
+  const KEY = 'portfolio_vid'
+  try {
+    const stored = sessionStorage.getItem(KEY)
+    if (stored) return stored
+    const id = `${Date.now().toString(36)}-${Math.random().toString(36).slice(2, 9)}`
+    sessionStorage.setItem(KEY, id)
+    return id
+  } catch {
+    return `${Date.now().toString(36)}-${Math.random().toString(36).slice(2, 9)}`
+  }
 }
