@@ -2,9 +2,9 @@
 :root {
   --page-bg: #040404;
   --bg: #111111;
-  --card-bg: #000000e8;
+  --card-bg: #181818;
   --card-bg-raised: #1A1A1A;
-  --card-border: #333333;
+  --card-border: #2a2a2a;
   --text-primary: #FFFFFF;
   --text-muted: #CCCCCC;
   --text-dim: #808080;
@@ -30,8 +30,8 @@ body { background-image: linear-gradient(to right, var(--grid-line) 1px, transpa
 ::selection { color: #000000; background: #CCCCCC; }
 
 .site-shell, .site-main { color: #FFFFFF; }
-.bento-card { border-color: #333333; background-color: #202020; }
-.bento-card:hover { border-color: #808080; }
+.bento-card { border-color: #2a2a2a; background-color: #181818; }
+.bento-card:hover { border-color: #444; }
 .profile-photo { border-color: rgb(26, 26, 26); background-color: #1A1A1A;}
 .card-kicker, .page-eyebrow, .eyebrow-note, .contact-note { color: #808080; }
 .muted-copy, .intro-copy, .headline-note { color: #CCCCCC; }
@@ -52,7 +52,7 @@ body { background-image: linear-gradient(to right, var(--grid-line) 1px, transpa
 .project-teaser small, .contact-option small { color: #808080; }
 .home-project-caption { color: #FFFFFF; background: rgba(0, 0, 0, 0.78); }
 .project-watermark { color: #CCCCCC; }
-.skill-icon-tile, .interest-icon-tile { border-color: #333333; background: #1A1A1A; }
+.skill-icon-tile, .interest-icon-tile { background: transparent; }
 .skill-icon-tile img, .interest-icon-tile img, .home-project-tile img, .project-detail-image-wrap img {  }
 .card-arrow { color: #000000; background: #FFFFFF; }
 .card-arrow:hover { color: #000000; background: #CCCCCC; }
@@ -66,6 +66,13 @@ body { background-image: linear-gradient(to right, var(--grid-line) 1px, transpa
 .contact-option:hover { border-color: #808080; }
 .contact-option > svg:last-child { color: #808080; }
 .cursor-grid-reveal { background-image: linear-gradient(to right, rgba(204, 204, 204, 0.18) 1px, transparent 1px), linear-gradient(to bottom, rgba(204, 204, 204, 0.18) 1px, transparent 1px); }
+
+/* Home headline: orange accent like the reference image */
+.home-bento-grid .headline-card h1 { color: #f5a623; }
+.home-bento-grid .headline-card h1 span { color: #f5a623; }
+
+/* Skills page: no background on pills */
+.stackGroup .stackPill { background: transparent; }
 
 @media (prefers-reduced-motion: reduce) {
   .cursor-grid-reveal { display: none; }

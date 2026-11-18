@@ -1,4 +1,4 @@
-/* Original Stack page layout and motion, adapted only to grayscale surfaces. */
+/* Stack page layout and animations — no background on pills, keep all animations. */
 .stackPage { min-height: 100svh; padding: calc(var(--nav-h) + 4rem) var(--gutter) 5rem; }
 .stackPage__header { max-width: 44rem; margin-bottom: 3rem; }
 .stackPage__eyebrow { margin: 0 0 0.75rem; color: var(--text-soft); font-family: ui-monospace, 'SFMono-Regular', Menlo, Consolas, monospace; font-size: 0.85rem; letter-spacing: 0.12em; text-transform: uppercase; }
@@ -10,12 +10,35 @@
 .stackGroup__title { margin: 0; color: var(--text-soft); font-family: ui-monospace, 'SFMono-Regular', Menlo, Consolas, monospace; font-size: 0.95rem; font-weight: 400; letter-spacing: 0.04em; text-transform: uppercase; }
 .stackGroup__title::before { counter-increment: group; content: counter(group, decimal-leading-zero) ' — '; }
 .stackGroup .stackList { display: flex; flex-wrap: wrap; justify-content: flex-start; gap: 0.8rem; margin: 0; padding: 0; list-style: none; }
-.stackGroup .stackPill { display: inline-flex; height: 38px; align-items: center; gap: 0.75rem; padding: 0 1.3rem 0 0.9rem; border: 1px solid rgba(128, 128, 128, 0.3); border-radius: 999px; color: #fff; background: rgba(128, 128, 128, 0.04); font-size: 0.9rem; font-weight: 500; white-space: nowrap; transition: border-color 0.2s ease, background-color 0.2s ease, transform 0.25s ease, box-shadow 0.25s ease; }
-.stackGroup .stackPill:hover { border-color: #808080; background: rgba(204, 204, 204, 0.08); box-shadow: 0 8px 22px -8px rgba(204, 204, 204, 0.24); transform: translateY(-2px); }
+
+/* Pills — NO background div, transparent background, keep all other styling */
+.stackGroup .stackPill {
+  display: inline-flex;
+  height: 38px;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0 1.3rem 0 0.9rem;
+  border: 1px solid rgba(128, 128, 128, 0.3);
+  border-radius: 999px;
+  color: #fff;
+  background: transparent;
+  font-size: 0.9rem;
+  font-weight: 500;
+  white-space: nowrap;
+  transition: border-color 0.2s ease, background-color 0.2s ease, transform 0.25s ease, box-shadow 0.25s ease;
+}
+.stackGroup .stackPill:hover {
+  border-color: #808080;
+  background: rgba(255, 255, 255, 0.05);
+  box-shadow: 0 8px 22px -8px rgba(204, 204, 204, 0.18);
+  transform: translateY(-2px);
+}
 .stackPill__icon { width: 22px; height: 22px; flex: 0 0 22px; background-color: currentColor; -webkit-mask: var(--i) center / contain no-repeat; mask: var(--i) center / contain no-repeat; transition: background-color 0.2s ease; }
 .stackPill__logo { display: block; width: 22px; height: 22px; flex: 0 0 22px; object-fit: contain; filter: grayscale(1) brightness(0) invert(1); transition: filter 0.35s ease, transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1); }
 .stackPill[data-logo="js"] .stackPill__logo { border-radius: 3px; }
-.stackPill:hover .stackPill__logo, .stackPill__logo:hover { filter: grayscale(1) brightness(0) invert(1); transform: scale(1.25) rotate(-8deg); }
+.stackPill:hover .stackPill__logo { filter: none; transform: scale(1.25) rotate(-8deg); }
+/* Keep white for specific monochrome logos */
+.stackPill[data-logo="keep"]:hover .stackPill__logo { filter: grayscale(1) brightness(0) invert(1); }
 .stackBack { color: var(--text-soft); font-family: ui-monospace, 'SFMono-Regular', Menlo, Consolas, monospace; font-size: 0.85rem; letter-spacing: 0.12em; text-transform: uppercase; text-decoration: none; transition: color 0.2s ease; }
 .stackBack:hover { color: #fff; }
 .stackBack:focus-visible { outline: 2px solid #ccc; outline-offset: 4px; }

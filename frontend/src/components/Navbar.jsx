@@ -12,7 +12,6 @@ const navigation = [
 ]
 
 
-
 export default function Navbar() {
   const navRef = useRef(null)
   const menuOpenRef = useRef(false)

@@ -49,8 +49,11 @@ button:focus-visible, a:focus-visible { outline: 2px solid var(--accent); outlin
 .menu-toggle { display: none; width: 40px; height: 40px; align-items: center; justify-content: center; border: 1px solid var(--card-border); border-radius: 7px; color: var(--text-primary); background: transparent; cursor: pointer; }
 .site-main { width: 100%; flex: 1 0 auto; }
 .page-container { position: relative; width: min(1040px, calc(100% - 48px)); margin: 42px auto 72px; }
+.eyebrow-row, .card-heading-row { display: flex; align-items: center; justify-content: space-between; gap: 16px; }
+.eyebrow-row { margin: 0 2px 14px; color: var(--text-muted); font-size: 12px; }
 .availability { display: inline-flex; align-items: center; gap: 8px; }
 .availability-dot { width: 7px; height: 7px; border-radius: 50%; background: #808080; }
+.eyebrow-note { color: var(--text-dim); }
 .bento-grid { display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); gap: 12px; }
 .bento-card { position: relative; min-width: 0; overflow: hidden; border: 0px solid var(--card-border); border-radius: var(--card-radius); background: var(--card-bg); transition: border-color 180ms ease; }
 .bento-card:hover { border-color: #333333; }
@@ -123,7 +126,20 @@ button:focus-visible, a:focus-visible { outline: 2px solid var(--accent); outlin
 .contact-option:hover { border-color: #333333; }
 .contact-option > svg:last-child { margin-left: auto; color: #808080; }
 .contact-note { margin-top: 16px; color: #808080; font-size: 11px; }
-.not-found-page .button { margin-top: 4px; }
+/* ── About page enhancements ───────────────────────────────────────────── */
+.about-intro-card { padding: 28px !important; }
+.about-intro-inner { display: flex; align-items: flex-start; gap: 28px; }
+.about-photo-wrap { flex: 0 0 auto; }
+.about-profile-photo { width: 110px; height: 110px; border-radius: 12px; object-fit: cover; object-position: center 8%; background: #202020; border: 1px solid #333; }
+
+/* ── Contact page enhancements ─────────────────────────────────────────── */
+.contact-main-card { display: flex; min-height: 300px; flex-direction: column; align-items: flex-start; justify-content: center; }
+.contact-note { margin-top: 12px; color: #808080; font-size: 11px; }
+
+@media (max-width: 600px) {
+  .about-intro-inner { flex-direction: column; gap: 16px; }
+  .about-profile-photo { width: 80px; height: 80px; }
+}
 
 .cursor-grid-reveal {
   position: fixed;
